@@ -31,39 +31,26 @@ class _HomePageState extends State<HomePage> {
     "assets/images_codes_ethique/code5.jpg",
     "assets/images_codes_ethique/code6.jpg",
     "assets/images_codes_ethique/code1.jpg",
-  
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-  preferredSize: const Size.fromHeight(90.0), // Augmente la hauteur
-  child: AppBar(
-    title:  Padding(
-          padding: const EdgeInsets.only(top: 12, left: 18),
-          child: Text(
-            maxLines: 2,
-            "code d'éthique et de la déonthologie".toUpperCase(),
-            style: TextStyle(color: Colors.black),),
+        preferredSize: const Size.fromHeight(90.0),
+        child: AppBar(
+          title: const Padding(
+            padding: EdgeInsets.only(top: 12, left: 18),
+            child: Text(
+              maxLines: 2,
+              "CODE D'ÉTHIQUE ET DE LA DÉONTOLOGIE",
+              style: TextStyle(color: Colors.black),
+            ),
+          ),
+          centerTitle: true,
+          backgroundColor: Colors.orangeAccent,
         ),
-    centerTitle: true,
-    
-    backgroundColor: Colors.orangeAccent,
-  ),
-),
-      // appBar: AppBar(
-        
-      //   elevation: 5,
-      //   backgroundColor: Colors.orangeAccent,
-      //   title:  Padding(
-      //     padding: const EdgeInsets.all(8.0),
-      //     child: Text(
-      //       maxLines: 2,
-      //       "code d'éthique et de la déonthologie".toUpperCase(),
-      //       style: TextStyle(color: Colors.black),),
-      //   ),
-      // ),
+      ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -80,13 +67,40 @@ class _HomePageState extends State<HomePage> {
               itemBuilder: (context, index) {
                 return Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: SizedBox(
-                    height: 320,
-                    width: double.infinity,
-                    
-                    child: Image.asset(
-                      images[index % images.length],
-                      fit: BoxFit.cover,
+                  child: GestureDetector(
+                    onTap: () {
+                      showDialog(
+                        context: context,
+                        builder: (_) => Dialog(
+                          backgroundColor: Colors.black,
+                          insetPadding: EdgeInsets.zero,
+                          child: GestureDetector(
+                            onTap: () => Navigator.pop(context),
+                            child: InteractiveViewer(
+                              panEnabled: true,
+                              boundaryMargin: const EdgeInsets.all(20),
+                              minScale: 0.5,
+                              maxScale: 3.0,
+                              child: SizedBox(
+                                width: MediaQuery.of(context).size.width,
+                                height: MediaQuery.of(context).size.height,
+                                child: Image.asset(
+                                  images[index % images.length],
+                                  fit: BoxFit.contain,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      );
+                    },
+                    child: SizedBox(
+                      height: 330,
+                      width: double.infinity,
+                      child: Image.asset(
+                        images[index % images.length],
+                        fit: BoxFit.cover,
+                      ),
                     ),
                   ),
                 );
@@ -126,31 +140,33 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 5, vertical: 10),
-            
-               child: ElevatedButton(
+            padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
+            child: ElevatedButton(
               onPressed: () {
-                 Get.offAll(() => const CurentPage());
+                Get.offAll(() => const CurentPage());
               },
               style: ElevatedButton.styleFrom(
                 elevation: 3,
                 backgroundColor: Colors.green[600],
-                padding: EdgeInsets.symmetric(horizontal: 30.0, vertical: 10),
+                padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 10),
               ),
-          child: Row(
-            mainAxisSize: MainAxisSize.min, // Pour éviter que le bouton prenne toute la largeur
-            children: [
-              Icon(Icons.login, color: Colors.white), // Icône
-              SizedBox(width: 8), // Espacement entre l'icône et le texte
-              Text("Dashbord",
-                style: TextStyle(color: Colors.white, 
-                fontWeight: FontWeight.bold,
-                fontSize: 16),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: const [
+                  Icon(Icons.login, color: Colors.white),
+                  SizedBox(width: 8),
+                  Text(
+                    "Dashbord",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                    ),
+                  ),
+                ],
               ),
-            ],
-          ),
+            ),
           )
-            )
         ],
       ),
     );

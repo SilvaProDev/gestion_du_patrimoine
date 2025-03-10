@@ -279,4 +279,6 @@ class InventaireController extends GetxController {
       isLoading.value = false;
     }
   }
+
+ 
 }

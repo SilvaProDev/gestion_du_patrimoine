@@ -378,7 +378,8 @@ class _DashbordState extends State<Dashbord> {
                                                             ? const Color
                                                                 .fromARGB(
                                                                 255, 65, 3, 83)
-                                                            : Colors.blue[100]);
+                                                            : Colors.blue[100]
+                                              );
                                               },
                                             )
                                           : GridView.builder(

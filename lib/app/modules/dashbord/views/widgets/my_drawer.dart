@@ -45,15 +45,15 @@ class MyDrawer extends StatelessWidget {
                   label: 'Accueil',
                 ),
                 const TextIconButton(
-                  icon: Icons.shopping_cart,
+                  icon: Icons.done_sharp,
                   label: 'Traités',
                 ),
                 const TextIconButton(
-                  icon: Icons.wallet_giftcard,
+                  icon: Icons.do_not_disturb_outlined,
                   label: 'Non traités',
                 ),
                 const TextIconButton(
-                  icon: Icons.settings,
+                  icon: Icons.offline_bolt_sharp,
                   label: 'Hors delai',
                 ),
                 const Divider(

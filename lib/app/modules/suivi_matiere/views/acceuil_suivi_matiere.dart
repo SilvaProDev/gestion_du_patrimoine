@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../layout/layout.dart';
 import 'inventaire/menu_inventaire_matiere.dart';
 import 'menu_suivi_matiere.dart';
 
@@ -46,10 +47,7 @@ class AccueilSuiviMatiere extends StatelessWidget {
                           ),
                           Text(
                             "SUIVI DES MATIERES",
-                            style: TextStyle(
-                                color: Colors.white70,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 16),
+                            style: kHeading,
                           )
                         ],
                       ),

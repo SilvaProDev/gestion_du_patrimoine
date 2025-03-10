@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../../layout/layout.dart';
 import '../../../dashbord/views/widgets/liste_module.dart';
 import 'menu_inventaire_matiere.dart';
 
@@ -47,10 +48,7 @@ class SuiviMatiereInventaireView extends StatelessWidget {
                           ),
                           Text(
                             "INVENTAIRE",
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 16),
+                            style: kHeading,
                           )
                         ],
                       ),

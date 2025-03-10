@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:get/get.dart';
 import '../../../../../exportationPdf/pages/pdf_page.dart';
+import '../../controllers/inventaire_controller.dart';
+import '../../models/bien_model.dart';
 import 'inventaire_form.dart';
 import 'inventaire_view.dart';
+import 'widgets/detail_bien.dart';
 import 'widgets/widget_pdf.dart';
 
 class MenuInventaireMatiere extends StatefulWidget {
@@ -25,36 +28,47 @@ class MenuInventaireMatiere extends StatefulWidget {
 
 class _MenuInventaireMatiereState extends State<MenuInventaireMatiere> {
   int _currentIndex = 0; // Index de l'élément sélectionné
-  String qrCodeResult = "Aucun code scanné";
+  InventaireController _inventaireController = Get.put(InventaireController());
 
- Future<void> _changerPage(int index) async {
-  setState(() {
-    _currentIndex = index;
-  });
-
-  switch (index) {
-    case 0:
-      Get.to(() => InventaireForm());
-      break;
-    case 1:
-      Get.to(() => InventaireView());
-      break;
-    case 3:
-       Get.to(() => PdfPage());
-      break;
-    case 2:
-    String barcode = await FlutterBarcodeScanner.scanBarcode(
-                  "#000000",
-                  "CANCEL",
-                  true,
-                  ScanMode.QR,
-                );
-      
-      break;
+   BienModel _getBienParQrCode(String qrCode) {
+    return  _inventaireController.listeDesBiens
+        .firstWhere((code) => code.numeroSerie == qrCode);
+    
   }
-}
 
- 
+  Future<void> _changerPage(int index) async {
+    setState(() {
+      _currentIndex = index;
+    });
+
+    switch (index) {
+      case 0:
+        Get.to(() => InventaireForm());
+        break;
+      case 1:
+        Get.to(() => InventaireView());
+        break;
+      case 3:
+        Get.to(() => PdfPage());
+        break;
+      case 2:
+        String barcode = await FlutterBarcodeScanner.scanBarcode(
+          "#000000",
+          "CANCEL",
+          true,
+          ScanMode.QR,
+        );
+        if(_getBienParQrCode(barcode).numeroSerie != ""){
+          Get.to(DetailBien(), arguments: {
+          'bienId': _getBienParQrCode(barcode).id,
+          'libelleBien': _getBienParQrCode(barcode).libelleBien,
+          'numeroSerie': _getBienParQrCode(barcode).numeroSerie
+        });
+        }
+        ;
+        break;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {

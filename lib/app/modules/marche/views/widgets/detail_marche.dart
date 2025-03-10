@@ -98,7 +98,8 @@ class _DetailMarcheState extends State<DetailMarche> {
                               },
                             );
                     })
-                  : VideoMarche())
+                  : VideoMarche()
+                  )
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(

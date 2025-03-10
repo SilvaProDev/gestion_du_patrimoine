@@ -72,7 +72,8 @@ class InfoBien extends StatelessWidget {
                           Get.to(DetailBien(), arguments: {
                             'bienId': bien.id,
                             'libelleBien': bien.libelleBien,
-                            'numeroSerie': bien.numeroSerie
+                            'numeroSerie': bien.numeroSerie,
+                            'articleId': bien.articleId
                           });
                         },
                         child: const Icon(Icons.image),
