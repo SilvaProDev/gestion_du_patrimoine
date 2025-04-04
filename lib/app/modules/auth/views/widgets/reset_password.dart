@@ -54,7 +54,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                       },
                     ),
                     SizedBox(width: 5),
-                    Text("Réinitialisation du mot de passe", style: kHeading),
+                    Text("Réinitialisation du mot de passe", style: kHeadingPassword),
                   ],
                 ),
                 SizedBox(

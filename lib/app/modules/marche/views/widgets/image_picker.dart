@@ -33,8 +33,7 @@ class _MarcheImagePickerState extends State<MarcheImagePicker> {
         final String url = await _imageController.uploadImage(_deviceImage!,
             widget.marcheId); // Remplace par l'URL réelle après upload
         widget.updateUrl(url);
-        print('url');
-        print((url));
+       
       }
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(

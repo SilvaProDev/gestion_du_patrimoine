@@ -132,7 +132,7 @@ class InventaireController extends GetxController {
     }
   }
 
-  Future getListeBien() async {
+  Future<void> getListeBien() async {
     try {
       isLoading.value = true;
       var uri = Uri.parse('$url/listeArticleInventaire');
@@ -149,7 +149,6 @@ class InventaireController extends GetxController {
             (json.decode(response.body))['listeInventaire'] as List<dynamic>;
         listeDesBiens.value =
             jsonData.map((data) => BienModel.fromJson(data)).toList();
-        print(listeDesBiens[0].couleur);
       } else {
         isLoading.value = false;
       }
@@ -191,10 +190,10 @@ class InventaireController extends GetxController {
     }
   }
 
-  Future getLigneEconomiqueClasse2() async {
+  Future getNatureEconomiqueClasse2() async {
     try {
       isLoading.value = true;
-      var uri = Uri.parse('$url/ligneEconomiqueClasse2');
+      var uri = Uri.parse('$url/natureEconomiqueClasse2');
       final response = await http.get(
         uri,
         headers: {
@@ -280,5 +279,30 @@ class InventaireController extends GetxController {
     }
   }
 
- 
+//Recupère la liste des images d' un marché
+  Future getBienByCodeQR(String codeQr) async {
+    try {
+      isLoading.value = true;
+      var uri = Uri.parse('$url/bienParCode/$codeQr');
+      print(uri);
+      final response = await http.get(
+        uri,
+        headers: {
+          'Accept': 'application/json',
+          'Authorization': 'Bearer ${_authentificationController.token}'
+        },
+      );
+      //recupère la reponse de l utilisateur
+      if (response.statusCode == 200) {
+        final jsonData =
+            (json.decode(response.body))['bien_par_code'] as List<dynamic>;
+        listeDesBiens.value =
+            jsonData.map((data) => BienModel.fromJson(data)).toList();
+      } else {
+        isLoading.value = false;
+      }
+    } catch (e) {
+      return e.toString();
+    }
+  }
 }

@@ -108,11 +108,7 @@ class SuiviMatiereInventaireView extends StatelessWidget {
                                         :index ==2 ?Icons.qr_code
                                         :Icons.document_scanner_outlined
                                         ,
-                                    backgroundColor: index == 1
-                                        ? Colors.blue[200]
-                                        : index == 2
-                                            ? Colors.red[90]
-                                            : Colors.green[200],
+                                    backgroundColor:Colors.grey.shade300,
                                     libelle: listeModule[index]["libelle"],
                                   );
                                 }))

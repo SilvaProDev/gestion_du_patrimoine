@@ -34,6 +34,7 @@ List<Map<String, dynamic>> listeModule = [
   {"id": 2, "libelle": "Rapport"},
   {"id": 3, "libelle": "Suivi des matières"},
   {"id": 4, "libelle": "Cartographie"},
+  {"id": 5, "libelle": "Hors ligne"},
 ];
 
   @override
@@ -143,15 +144,17 @@ List<Map<String, dynamic>> listeModule = [
                                                 return ListeModule(
                                                   icon: 
                                                   index==1 ? Icons.badge
+                                                  :index ==0 ? (Icons.view_compact_alt_sharp)
                                                   :index ==2 ? (Icons.autorenew_outlined )
                                                   :index ==3 ? (Icons.map_rounded )
-                                                  :Icons.view_compact_alt_sharp,
+                                                  :Icons.offline_bolt_outlined,
                                                   numero: index,
                                                   backgroundColor: 
-                                                  index ==0 ? Colors.yellow[200]
+                                                  index ==0  ? Colors.yellow[200]
                                                   :index ==1 ? Colors.blue[200]
                                                   :index ==2 ? Colors.red[200]
-                                                  :Colors.green[200],
+                                                  :index ==3 ? Colors.green[200]
+                                                  : Colors.grey[200],
                                                   libelle:listeModule[index]["libelle"],
                                                 );
                                               }

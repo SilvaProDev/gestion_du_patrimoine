@@ -13,7 +13,7 @@ class ImageMarcheModel {
     required this.marcheId,
   });
 
- factory ImageMarcheModel.fromJson(Map<String, dynamic> json) {
+  factory ImageMarcheModel.fromJson(Map<String, dynamic> json) {
     return ImageMarcheModel(
       longitude: json["longitude"] ?? "",
       latitude: json["latitude"] ?? "",
@@ -21,7 +21,17 @@ class ImageMarcheModel {
       observation: json["observation"] ?? "",
       marcheId: json['marche_id'] is int
           ? json['marche_id']
-          : int.tryParse(json['marche_id']?.toString() ?? "0") ?? 0, // Valeur par défaut 0
+          : int.tryParse(json['marche_id']?.toString() ?? "0") ?? 0,
     );
+  }
+
+  Map<String, Object?> toJson() {
+    return {
+      "longitude": longitude,
+      "latitude": latitude,
+      "fichier": fichier,
+      "observation": observation,
+      "marche_id": marcheId,
+    };
   }
 }

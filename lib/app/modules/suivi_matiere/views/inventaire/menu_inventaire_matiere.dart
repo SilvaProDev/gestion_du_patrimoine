@@ -7,14 +7,15 @@ import '../../models/bien_model.dart';
 import 'inventaire_form.dart';
 import 'inventaire_view.dart';
 import 'widgets/detail_bien.dart';
-import 'widgets/widget_pdf.dart';
+import 'widgets/qr_code.dart';
 
 class MenuInventaireMatiere extends StatefulWidget {
   final Color? backgroundColor;
-  final icon;
+  final IconData? icon;
   final String libelle;
   final int numero;
-  MenuInventaireMatiere({
+
+  const MenuInventaireMatiere({
     super.key,
     this.backgroundColor,
     this.icon,
@@ -27,13 +28,27 @@ class MenuInventaireMatiere extends StatefulWidget {
 }
 
 class _MenuInventaireMatiereState extends State<MenuInventaireMatiere> {
-  int _currentIndex = 0; // Index de l'élément sélectionné
-  InventaireController _inventaireController = Get.put(InventaireController());
+  int _currentIndex = 0;
+  final InventaireController _inventaireController =
+      Get.put(InventaireController());
 
-   BienModel _getBienParQrCode(String qrCode) {
-    return  _inventaireController.listeDesBiens
-        .firstWhere((code) => code.numeroSerie == qrCode);
-    
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      await _inventaireController.getListeBien();
+     
+    });
+  }
+
+  /// Récupère un bien par son QR Code avec gestion des erreurs
+  BienModel? _getBienParQrCode(String qrCode) {
+    try {
+      return _inventaireController.listeDesBiens
+          .firstWhere((code) => code.numeroSerie == qrCode);
+    } catch (e) {
+      return null; // Retourne `null` si le bien n'existe pas
+    }
   }
 
   Future<void> _changerPage(int index) async {
@@ -48,9 +63,6 @@ class _MenuInventaireMatiereState extends State<MenuInventaireMatiere> {
       case 1:
         Get.to(() => InventaireView());
         break;
-      case 3:
-        Get.to(() => PdfPage());
-        break;
       case 2:
         String barcode = await FlutterBarcodeScanner.scanBarcode(
           "#000000",
@@ -58,14 +70,30 @@ class _MenuInventaireMatiereState extends State<MenuInventaireMatiere> {
           true,
           ScanMode.QR,
         );
-        if(_getBienParQrCode(barcode).numeroSerie != ""){
-          Get.to(DetailBien(), arguments: {
-          'bienId': _getBienParQrCode(barcode).id,
-          'libelleBien': _getBienParQrCode(barcode).libelleBien,
-          'numeroSerie': _getBienParQrCode(barcode).numeroSerie
-        });
+        if (barcode == "-1") {
+          // L'utilisateur a annulé
+          // Traite le QR code
+          Get.snackbar("Scan annulé", "Aucun QR Code scanné",
+              backgroundColor: Colors.orange, colorText: Colors.white);
+          return;
         }
-        ;
+        var bien = _getBienParQrCode(barcode);
+
+        if (bien!.numeroSerie!.isNotEmpty) {
+  
+         Get.to(DetailBienCodeQr(),arguments: {
+            'bienId': bien.id,
+            'libelleBien': bien.libelleBien,
+            'numeroSerie': bien.numeroSerie
+          });
+        } else {
+          Get.snackbar("Erreur", "Aucun bien trouvé pour ce QR Code",
+              backgroundColor: Colors.red, colorText: Colors.white);
+        }
+        break;
+
+      case 3:
+        Get.to(() => PdfPage());
         break;
     }
   }
@@ -73,32 +101,24 @@ class _MenuInventaireMatiereState extends State<MenuInventaireMatiere> {
   @override
   Widget build(BuildContext context) {
     return InkWell(
+      onTap: () {
+        _changerPage(widget.numero);
+      },
       child: Container(
-        color: Colors.grey.shade300,
-        margin: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+        color: widget.backgroundColor ?? Colors.grey.shade300,
+        margin: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
         child: Column(
           children: [
-            SizedBox(
-              height: 20,
-            ),
-            Icon(
-              widget.icon as IconData?,
-              size: 65,
-            ),
-            SizedBox(
-              height: 15,
-            ),
+            const SizedBox(height: 20),
+            Icon(widget.icon, size: 65),
+            const SizedBox(height: 15),
             Text(
-              "${widget.libelle}",
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
-            )
+              widget.libelle,
+              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+            ),
           ],
         ),
       ),
-      onTap: () {
-        print(widget.numero);
-        _changerPage(widget.numero);
-      },
     );
   }
 }

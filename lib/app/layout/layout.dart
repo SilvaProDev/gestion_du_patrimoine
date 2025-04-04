@@ -6,3 +6,5 @@ const TextStyle inputTextStyle = TextStyle(
 );
  TextStyle kHeading =
 GoogleFonts.lora(fontSize: 25,  color: Colors.white);
+ TextStyle kHeadingPassword =
+GoogleFonts.lora(fontSize: 20,  color: Colors.white);

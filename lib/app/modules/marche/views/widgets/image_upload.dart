@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:get/get_connect/connect.dart';
 import 'package:http_parser/http_parser.dart';
 
+import '../../../../constants/constants.dart';
 import '../../../auth/controllers/authentification.dart';
 
 class ImageUploadFile extends GetConnect {
@@ -32,7 +33,7 @@ class ImageUploadFile extends GetConnect {
       // Ajout des champs supplémentaires
       
       final response = await post(
-        'http://192.168.11.1:51/back-end/public/index.php/api/imageUpload',
+       uploadImageUrl,
         form,
         headers: {
           "Authorization":

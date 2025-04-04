@@ -21,7 +21,7 @@ class _InputNatureFormState extends State<InputNatureForm> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      _inventaireController.getLigneEconomiqueClasse2();
+      _inventaireController.getNatureEconomiqueClasse2();
     });
   }
 
@@ -54,7 +54,7 @@ class _InputNatureFormState extends State<InputNatureForm> {
             return TextField(
               onTap: () {
                 _controller.clear();
-                _inventaireController.getLigneEconomiqueClasse2();
+                _inventaireController.getNatureEconomiqueClasse2();
               },
               controller: controller,
               focusNode: focusNode,

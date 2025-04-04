@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../controllers/info_dossier.dart';
 import 'currentPage.dart';
 
 class CarouselPage extends StatelessWidget {
@@ -18,10 +19,19 @@ class HomePage extends StatefulWidget {
   @override
   State<HomePage> createState() => _HomePageState();
 }
-
+ 
 class _HomePageState extends State<HomePage> {
+  final InfoDossierController _infoDossierController =
+      Get.put(InfoDossierController());
   int currentIndex = 0;
   final PageController controller = PageController();
+@override
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _infoDossierController.getValeur();
+    });
+    super.initState();
+  }
 
   List<String> images = [
     "assets/images_codes_ethique/code1.jpg",

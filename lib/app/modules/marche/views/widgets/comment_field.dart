@@ -36,7 +36,7 @@ class _CommentFieldState extends State<CommentField> {
                         borderRadius: BorderRadius.circular(30),
                         color: Colors.grey[300]),
                     child: Text(
-                      "Longitude: ${_localisation.longitude.value}",
+                      "Long: ${_localisation.longitude.value}",
                       style: GoogleFonts.roboto(
                           fontWeight: FontWeight.bold,
                           color: Colors.black,
@@ -50,7 +50,7 @@ class _CommentFieldState extends State<CommentField> {
                         borderRadius: BorderRadius.circular(30),
                         color: Colors.grey[300]),
                     child: Text(
-                      "Latitude: ${_localisation.latitude.value}",
+                      "Lat: ${_localisation.latitude.value}",
                       style: GoogleFonts.roboto(
                           fontWeight: FontWeight.bold,
                           color: Colors.black,

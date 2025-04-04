@@ -35,7 +35,18 @@ class ActiviteModel {
     
     );
   }
-
+/// Factory pour convertir les données issues de SQLite
+  factory ActiviteModel.fromJsonSQLite(Map<String, dynamic> json) {
+    print("Conversion depuis SQLite : $json");
+    return ActiviteModel(
+      activiteId: json['activiteId'],
+      libelleActivite: json['libelleActivite'],
+      serviceId: json['serviceId'],
+      nbreMarche: json['nbreMarche'],
+      exercice: json['exercice'],
+      sig: json['sig'], // Peut être null
+    );
+  }
   // Méthode pour convertir une instance de ActiviteModel en JSON
   Map<String, dynamic> toJson() {
     return {
@@ -44,6 +55,18 @@ class ActiviteModel {
       'service_id': activiteId,
       'nbre_marche': nbreMarche,
       'exo_id': exercice,
+    };
+  }
+
+  // Méthode pour convertir en format compatible SQLite
+  Map<String, dynamic> toMap() {
+    return {
+      'activiteId': activiteId,
+      'libelleActivite': libelleActivite,
+      'serviceId': serviceId,
+      'nbreMarche': nbreMarche,
+      'exercice': exercice,
+      'sig': sig,
     };
   }
 }

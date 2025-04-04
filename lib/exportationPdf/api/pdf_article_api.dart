@@ -138,8 +138,7 @@ class PdfInvoiceApi {
           width: 40,
           child: BarcodeWidget(
             barcode: Barcode.qrCode(),
-            data: item.numeroSerie ??
-                'N/A', // Générer un QR Code unique pour chaque bien
+            data: item.numeroSerie ?? "NA"
           ),
         ),
       ];

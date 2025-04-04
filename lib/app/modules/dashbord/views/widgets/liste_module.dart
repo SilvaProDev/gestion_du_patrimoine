@@ -3,6 +3,7 @@ import 'package:gestion_patrimoine_dcf/app/modules/dashbord/views/home/liste_act
 import 'package:get/get.dart';
 
 import '../../../cartographie/views/home_cartographie.dart';
+import '../../../marcheHorsLigne/activite_marche_hors_ligne.dart';
 import '../../../suivi_matiere/views/acceuil_suivi_matiere.dart';
 
 
@@ -40,7 +41,9 @@ class _ListeModuleState extends State<ListeModule> {
         break;
       case 3:
       Get.to(() => MapScreen());
-       
+        break;
+      case 4:
+      Get.to(() => ListeActiviteMarcheHorsLigne());
         break;
     }
   }
@@ -67,7 +70,7 @@ class _ListeModuleState extends State<ListeModule> {
             ),
             Text(
               "${widget.libelle}",
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
             )
           ],
         ),
