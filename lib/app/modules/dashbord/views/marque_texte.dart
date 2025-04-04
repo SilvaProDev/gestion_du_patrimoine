@@ -67,7 +67,7 @@ class _MarqueePageState extends State<MarqueePage> {
             velocity: 50.0,
             pauseAfterRound: const Duration(seconds: 1),
             startPadding: 10.0,
-            accelerationDuration: const Duration(seconds: 1),
+            accelerationDuration: const Duration(seconds: 0),
             accelerationCurve: Curves.linear,
             decelerationDuration: const Duration(milliseconds: 500),
             decelerationCurve: Curves.easeOut,

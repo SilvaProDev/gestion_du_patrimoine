@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:flutter/material.dart';
 import 'package:gestion_patrimoine_dcf/app/constants/constants.dart';
 import 'package:gestion_patrimoine_dcf/app/modules/auth/controllers/authentification.dart';
 import 'package:get/get.dart';
